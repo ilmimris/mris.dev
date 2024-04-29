@@ -13,7 +13,7 @@ export default function Page() {
               <Card>
                 <div className="flex">
                   <div className="p-8">
-                    <div className="relative w-72 h-72 rounded-full overflow-hidden bg-[url('/pp.webp')] bg-cover bg-right-top bg-no-repeat -rotate-90 grayscale"></div>
+                    <div className="relative w-72 h-72 rounded-full overflow-hidden bg-[url('/pp.webp')] bg-cover bg-right-top bg-no-repeat grayscale hover:grayscale-0"></div>
                   </div>
                   <div className="w-full p-8">
                     <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
