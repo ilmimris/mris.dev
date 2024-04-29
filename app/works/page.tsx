@@ -22,17 +22,10 @@ export default async function WorksPage() {
     return acc;
   }, {} as Record<string, number>);
 
-  const featured = allWorks.find((work) => work?.slug === "spv.sicepat")!;
-  const top2 = allWorks.find((work) => work?.slug === "unkey.dev")!;
-  const top3 = allWorks.find((work) => work?.slug === "mris.dev")!;
+  const current = allWorks.find((work) => work?.slug === "spv.sicepat")!;
   const sorted = allWorks
     .filter((p) => p.published)
-    .filter(
-      (work) =>
-        work?.slug !== featured?.slug &&
-        work?.slug !== top2?.slug &&
-        work?.slug !== top3?.slug
-    )
+    .filter((work) => work?.slug !== current?.slug)
     .sort(
       (a, b) =>
         new Date(b.from ?? Number.POSITIVE_INFINITY).getTime() -
@@ -48,31 +41,42 @@ export default async function WorksPage() {
             Works
           </h2>
           <p className="mt-4 text-zinc-400">
-            Some of the projects are from work and some are on my own time.
+            Work experiences that I have been through. Some are from my
+            full-time job and some are from my part-time job.
           </p>
         </div>
         <div className="w-full h-px bg-zinc-800" />
 
-        <div className="grid grid-cols-1 gap-8 mx-auto lg:grid-cols-2 ">
+        <div className="grid grid-cols-1 w-4/5 mx-auto justify-center">
           <Card>
-            <Link href={`/works/${featured.slug}`}>
+            <Link href={`/works/${current.slug}`}>
               <article className="relative w-full h-full p-4 md:p-8">
                 <div className="flex items-center justify-between gap-2">
                   <div className="text-xs text-zinc-100">
-                    {featured.from ? (
-                      <time dateTime={new Date(featured.from).toISOString()}>
+                    {current.from ? (
+                      <time dateTime={new Date(current.from).toISOString()}>
                         {Intl.DateTimeFormat(undefined, {
                           dateStyle: "medium",
-                        }).format(new Date(featured.from))}
+                        }).format(new Date(current.from))}
                       </time>
                     ) : (
-                      <span>SOON</span>
+                      <span>Now</span>
+                    )}
+                    {" - "}
+                    {current.until && current.until !== "now" ? (
+                      <time dateTime={new Date(current?.until).toISOString()}>
+                        {Intl.DateTimeFormat(undefined, {
+                          dateStyle: "medium",
+                        }).format(new Date(current.until))}
+                      </time>
+                    ) : (
+                      <span>Present</span>
                     )}
                   </div>
                   <span className="flex items-center gap-1 text-xs text-zinc-500">
                     <Eye className="w-4 h-4" />{" "}
                     {Intl.NumberFormat("en-US", { notation: "compact" }).format(
-                      views[featured.slug] ?? 0
+                      views[current.slug] ?? 0
                     )}
                   </span>
                 </div>
@@ -81,12 +85,12 @@ export default async function WorksPage() {
                   id="featured-post"
                   className="mt-4 text-3xl font-bold text-zinc-100 group-hover:text-white sm:text-4xl font-display"
                 >
-                  {featured.position}
+                  {current.position}
                 </h2>
-                <p className="mt-4 leading-8 duration-150 text-zinc-400 group-hover:text-zinc-300">
-                  {featured.company}
+                <p className="mt-2 leading-8 duration-150 text-zinc-400 group-hover:text-zinc-300">
+                  {current.company}
                 </p>
-                <div className="absolute bottom-4 md:bottom-8">
+                <div className="pt-2">
                   <p className="hidden text-zinc-200 hover:text-zinc-50 lg:block">
                     Read more <span aria-hidden="true">&rarr;</span>
                   </p>
@@ -94,45 +98,25 @@ export default async function WorksPage() {
               </article>
             </Link>
           </Card>
-
-          <div className="flex flex-col w-full gap-8 mx-auto border-t border-gray-900/10 lg:mx-0 lg:border-t-0 ">
-            {[top2, top3].map((work) => (
-              <Card key={work?.slug}>
-                <Article work={work} views={views[work?.slug] ?? 0} />
-              </Card>
-            ))}
-          </div>
         </div>
+
         <div className="hidden w-full h-px md:block bg-zinc-800" />
 
-        <div className="grid grid-cols-1 gap-4 mx-auto lg:mx-0 md:grid-cols-3">
-          <div className="grid grid-cols-1 gap-4">
-            {sorted
-              .filter((_, i) => i % 3 === 0)
-              .map((project) => (
-                <Card key={project.slug}>
-                  <Article project={project} views={views[project.slug] ?? 0} />
+        <div className="grid grid-cols-1 gap-8 lg:mx-0">
+          {sorted.map((work) => (
+            <div className="grid grid-cols-2" key={work.slug}>
+              <div className="w-1/4 flex flex-col items-center ml-auto mr-4">
+                <div className="w-px h-1/2 bg-zinc-800" />
+                <div className="w-4 h-4 bg-zinc-500 rounded-full" />
+                <div className="w-px h-1/2 bg-zinc-800" />
+              </div>
+              <div className="w-3/4">
+                <Card>
+                  <Article work={work} views={views[work.slug] ?? 0} />
                 </Card>
-              ))}
-          </div>
-          <div className="grid grid-cols-1 gap-4">
-            {sorted
-              .filter((_, i) => i % 3 === 1)
-              .map((project) => (
-                <Card key={project.slug}>
-                  <Article project={project} views={views[project.slug] ?? 0} />
-                </Card>
-              ))}
-          </div>
-          <div className="grid grid-cols-1 gap-4">
-            {sorted
-              .filter((_, i) => i % 3 === 2)
-              .map((project) => (
-                <Card key={project.slug}>
-                  <Article project={project} views={views[project.slug] ?? 0} />
-                </Card>
-              ))}
-          </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

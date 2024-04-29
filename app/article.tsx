@@ -20,7 +20,17 @@ export const Article: React.FC<Props> = ({ work, views }) => {
                 )}
               </time>
             ) : (
-              <span>SOON</span>
+              <span>Now</span>
+            )}
+            {" - "}
+            {work?.until && work?.until !== "now" ? (
+              <time dateTime={new Date(work?.until).toISOString()}>
+                {Intl.DateTimeFormat(undefined, { dateStyle: "medium" }).format(
+                  new Date(work.until)
+                )}
+              </time>
+            ) : (
+              <span>Present</span>
             )}
           </span>
           <span className="text-zinc-500 text-xs  flex items-center gap-1">
