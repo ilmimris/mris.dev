@@ -1,0 +1,32 @@
+[
+{
+    "id": 1,
+    "category": "Web development",
+    "skills": ["Go", "Python", "NodeJS", "GraphQL", "ReactJS"]
+},
+{
+    "id": 2,
+    "category": "Databases",
+    "skills": ["MongoDB", "Postgres", "Redis", "Neo4J"]
+},
+{
+    "id": 3,
+    "category": "Message Broker",
+    "skills": ["Kafka"]
+},
+{
+    "id": 4,
+    "category": "AI",
+    "skills": ["LLMs", "OpenAI", "Tensorflow 2", "Pytorch"]
+},
+{
+    "id": 5,
+    "category": "Cloud",
+    "skills": ["Kubernetes", "GCP", "AWS"]
+},
+{
+    "id": 6,
+    "category": "DevOps",
+    "skills": ["Docker", "Gitlab CI", "Terraform"]
+}
+]
