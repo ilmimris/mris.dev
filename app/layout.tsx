@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     default: "mris.dev",
     template: "%s | mris.dev",
   },
-  description: "Co-founder of unkey.dev and founder of planetfall.io",
+  description: "Muhammad Rafiul Ilmi Syarifudin, Results-oriented Backend Software Engineer with a passion in AI & ML for building high-impact applications that improve operational efficiency",
   openGraph: {
     title: "mris.dev",
     description:
-      "Co-founder of unkey.dev and founder of planetfall.io",
+      "Muhammad Rafiul Ilmi Syarifudin, Results-oriented Backend Software Engineer with a passion in AI & ML for building high-impact applications that improve operational efficiency",
     url: "https://mris.dev",
     siteName: "mris.dev",
     images: [
