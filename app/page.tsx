@@ -36,10 +36,8 @@ export default function Home() {
 
       <div className="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0" />
       <div className="my-16 text-center animate-fade-in">
-        <h2 className="text-sm text-zinc-500 ">
-          Results-oriented Backend Software Engineer with a passion for
-          <br />
-          building high-impact applications that improve operational efficiency.
+        <h2 className="text-sm text-zinc-500 w-3/4 md:w-1/2 mx-auto">
+          Results-oriented Backend Software Engineer with a passion for building high-impact applications that improve operational efficiency.
         </h2>
       </div>
     </div>
