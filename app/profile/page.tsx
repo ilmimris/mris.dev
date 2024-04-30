@@ -11,9 +11,9 @@ export default function Page() {
           <div className="grid grid-cols-1 gap-8 w-full">
             <div className="w-full">
               <Card>
-                <div className="flex">
+                <div className="flex mx-auto flex-col lg:flex-row items-center">
                   <div className="p-8">
-                    <div className="relative w-72 h-72 rounded-full overflow-hidden bg-[url('/pp.webp')] bg-cover bg-right-top bg-no-repeat grayscale hover:grayscale-0"></div>
+                    <div className="relative w-72 h-72 rounded-full overflow-hidden bg-[url('/pp.jpg')] bg-cover bg-right-top bg-no-repeat grayscale hover:grayscale-0"></div>
                   </div>
                   <div className="w-full p-8">
                     <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
@@ -26,18 +26,20 @@ export default function Page() {
                       Results-oriented Backend Software Engineer with 6+ years
                       of experience building high-impact applications that
                       improve operational efficiency. Pioneered the integration
-                      of Large Language Models (LLMs) into the Qalboo chatbot
-                      Qarib, significantly enhancing its ability to understand
-                      and respond to user inquiries. Successfully led the
-                      development of a new attendance monitoring system that
+                      of Large Language Models (<b>LLMs</b>) into the Qalboo
+                      chatbot Qarib, significantly enhancing its ability to
+                      understand and respond to user inquiries. Successfully led
+                      the development of a new attendance monitoring system that
                       eliminated manual data entry, saving the company 90% in
                       costs. Also spearheaded the creation of an outsourcing
                       request-fulfillment system that streamlined recruitment,
                       enabling a 90% reduction in hiring time. Proven leadership
                       skills, currently managing two teams. Adept in Web and API
-                      development, with experience in Go, Typescript, MongoDB,
-                      RDBMS, Docker, and Gitlab CI. Eager to contribute my
-                      expertise and leadership to your team's success.
+                      development, with experience in <b>Go</b>,{" "}
+                      <b>Typescript</b>, <b>Python</b>, <b>MongoDB</b>,{" "}
+                      <b>RDBMS</b>, <b>Docker</b>, and <b>Gitlab CI</b>. Eager
+                      to contribute my expertise and leadership to your team's
+                      success.
                     </p>
                   </div>
                 </div>

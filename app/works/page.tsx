@@ -35,8 +35,8 @@ export default async function WorksPage() {
   return (
     <div className="relative pb-16">
       <Navigation />
-      <div className="px-6 pt-20 mx-auto space-y-8 max-w-7xl lg:px-8 md:space-y-16 md:pt-24 lg:pt-32">
-        <div className="max-w-2xl mx-auto lg:mx-0">
+      <div className="px-6 pt-20 space-y-8 md:space-y-0 mx-auto max-w-7xl lg:px-8 md:pt-24 lg:pt-32">
+        <div className="max-w-2xl mx-auto lg:mx-0 md:my-8 lg:my-16">
           <h2 className="text-3xl font-bold tracking-tight text-zinc-100 sm:text-4xl">
             Works
           </h2>
@@ -47,7 +47,7 @@ export default async function WorksPage() {
         </div>
         <div className="w-full h-px bg-zinc-800" />
 
-        <div className="grid grid-cols-1 w-4/5 mx-auto justify-center">
+        <div className="grid grid-cols-1 w-full p-8 md:w-4/5 mx-auto justify-center">
           <Card>
             <Link href={`/works/${current.slug}`}>
               <article className="relative w-full h-full p-4 md:p-8">
@@ -100,17 +100,20 @@ export default async function WorksPage() {
           </Card>
         </div>
 
-        <div className="hidden w-full h-px md:block bg-zinc-800" />
+        <div className="w-full h-px md:block bg-zinc-800" />
 
-        <div className="grid grid-cols-1 gap-8 lg:mx-0">
+        <div className="grid grid-cols-1 gap-8 md:gap-0 w-10/12 md:w-full lg:mx-0 mx-auto md:mt-0">
           {sorted.map((work) => (
-            <div className="grid grid-cols-2" key={work.slug}>
-              <div className="w-1/4 flex flex-col items-center ml-auto mr-4">
+            <div className="grid md:grid-cols-2" key={work.slug}>
+              <div className="hidden md:flex md:flex-col w-full md:w-1/4 items-center ml-auto mr-4">
                 <div className="w-px h-1/2 bg-zinc-800" />
                 <div className="w-4 h-4 bg-zinc-500 rounded-full" />
                 <div className="w-px h-1/2 bg-zinc-800" />
               </div>
-              <div className="w-3/4">
+              <div className="flex flex-col items-center -mt-8 md:hidden">
+                <div className="w-px h-8 bg-slate-200" />
+              </div>
+              <div className="w-full md:w-3/4 md:mt-8">
                 <Card>
                   <Article work={work} views={views[work.slug] ?? 0} />
                 </Card>
