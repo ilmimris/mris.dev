@@ -4,6 +4,7 @@ import LocalFont from "@next/font/local";
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: {
@@ -68,11 +69,13 @@ export default function RootLayout({
         <SpeedInsights />
       </head>
       <body
-        className={`bg-black ${process.env.NODE_ENV === "development" ? "debug-screens" : undefined
-          }`}
+        className={`bg-black ${
+          process.env.NODE_ENV === "development" ? "debug-screens" : undefined
+        }`}
       >
         {children}
       </body>
+      <GoogleTagManager gtmId="GTM-5R9DK7S3" />
     </html>
   );
 }
