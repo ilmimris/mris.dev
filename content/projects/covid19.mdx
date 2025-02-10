@@ -1,0 +1,61 @@
+---
+title: Detecting COVID-19 in X-ray Images with Deep Learning
+description: A web application that uses a deep learning model to detect COVID-19 in X-ray images
+repository: ilmimris/ct-covid19-model
+url: https://bangkit-bdg2a.netlify.app/
+date: 2022-06-22
+published: true
+---
+
+![Chest X-ray Image](https://raw.githubusercontent.com/ilmimris/bangkit-bgd2a-webapp/refs/heads/master/public/pneumoniavirus.png)
+
+In the midst of the COVID-19 pandemic, rapid and accurate detection methods are crucial. While PCR tests are the standard, imaging techniques like chest X-rays have become valuable tools for diagnosis. Enter the [ct-covid19-model](https://github.com/ilmimris/ct-covid19-model) project—a deep learning approach to identify COVID-19 from X-ray images.
+
+## Project Overview
+
+This initiative leverages TensorFlow and Keras to develop a model capable of distinguishing between COVID-19 positive cases and others using chest X-rays. It's part of the Bangkit Assignment 5, focusing on machine learning applications in healthcare.
+
+**Disclaimer:** This project is for educational purposes and is not intended for clinical diagnosis.
+
+## Data Collection
+
+The model was trained using two primary datasets:
+
+- **COVID-19 Chest X-ray Dataset:** Curated by Joseph Paul Cohen and colleagues, this dataset includes X-ray images of patients diagnosed with COVID-19.
+
+- **Chest X-Ray Images (Pneumonia):** Compiled by Daniel Kermany and team, this dataset contains X-ray images of patients with various types of pneumonia and healthy individuals.
+
+From these sources, the project selected:
+
+- **97 COVID-19 positive images** (posterior-anterior view)
+- **97 images** of either healthy individuals or patients with other types of pneumonia
+
+This balanced dataset of 194 images ensures the model learns to differentiate effectively between COVID-19 and other conditions.
+
+## Model Architecture
+
+The project employs the VGG16 architecture, a well-known convolutional neural network, through transfer learning. Key specifications include:
+
+- **Learning Rate:** 0.001
+- **Epochs:** 25
+- **Batch Size:** 8
+- **Optimizer:** Adam
+- **Loss Function:** Binary Crossentropy
+
+The dataset was split into 80% for training and 20% for testing.
+
+## Performance
+
+The model achieved impressive results:
+
+- **Accuracy:** Approximately 97%. The model got 97 out of 100 cases right.
+- **Sensitivity (True Positive Rate):** 100% It found all the sick people without missing any.
+- **Specificity (True Negative Rate):** 95% It correctly identified most healthy people, with a few mistakes.
+
+These metrics indicate the model's effectiveness in identifying COVID-19 positive cases while minimizing false positives.
+
+## Conclusion
+
+The ct-covid19-model demonstrates the potential of deep learning in medical imaging, especially for rapid COVID-19 detection. While promising, it's essential to remember that this model is a proof of concept and not intended for clinical use. Further research and validation are necessary before considering deployment in healthcare settings.
+
+For those interested in exploring or contributing to this project, the code and resources are available on [GitHub](https://github.com/ilmimris/ct-covid19-model). Collaboration and continuous learning are key as we navigate the challenges posed by the pandemic. Stay safe and keep innovating! 🚀
