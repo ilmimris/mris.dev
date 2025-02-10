@@ -4,10 +4,10 @@ description: Explore how Deep Neural Networks enhance photometric redshift measu
 repository: ilmimris/redshift-dnn-thesis-mris
 url: https://scholar.google.com/citations?view_op=view_citation&hl=id&user=Cdgj7rUAAAAJ&citation_for_view=Cdgj7rUAAAAJ:u-x6o8ySG0sC
 date: 2019-04-11
-published: true
+published: false
 ---
  
-Understanding the distance of galaxies is a fundamental aspect of cosmology. It helps scientists determine key physical parameters such as mass, luminosity, star formation rate, and metallicity. One of the most accurate ways to measure these distances is through redshift—how much a galaxy’s light shifts due to the expansion of the universe.
+Understanding the distance of galaxies is a fundamental aspect of cosmology. It helps scientists determine key physical parameters such as mass, luminosity, star formation rate, and metallicity. One of the most accurate ways to measure these distances is through redshift—how much a galaxy's light shifts due to the expansion of the universe.
 
 ## The Challenge of Measuring Redshift 🔭
 
@@ -17,20 +17,61 @@ Redshift can be determined using **spectroscopic** or **photometric** methods:
 
 With the **Sloan Digital Sky Survey (SDSS) DR10 dataset**, which contains 250 times more photometric than spectroscopic data, leveraging machine learning to improve photometric redshift measurement becomes an exciting opportunity.
 
+## Preparing the Dataset
+
+To train a Deep Neural Network (DNN), a well-structured dataset was required. The steps to prepare the dataset included:
+
+1. **Querying the SDSS DR10 Database**  
+   - Galaxy images and redshift values were retrieved from the **SDSS DR10** dataset using SQL-based queries.  
+   - Selection criteria:
+     - Diameter less than 30 arcseconds  
+     - Valid magnitude values in the **g, r, i, and z filters**  
+     - Spectroscopic redshift below 2, with an error margin under 0.1  
+
+2. **Random Sampling**  
+   - To optimize computational efficiency, **59,861 galaxies** were randomly selected from the dataset.  
+   - This selection ensured a balanced distribution of redshifts across different ranges.
+
+3. **Downloading Multi-Band Images**  
+   - Each selected galaxy's images in the **g, r, i, and z filters** were downloaded using Python's \`astroquery\` library.  
+
+4. **Preprocessing the Images**  
+   - **Image Registration:** Aligning the images from different filters to correct positional mismatches.  
+   - **Flux Conversion:** Converting pixel values to **asinh magnitudes**, which handle low signal-to-noise data better.  
+   - **K-Correction (Optional):** Adjusting brightness for redshift effects, though this was later found to reduce accuracy.  
+
+5. **Dataset Formatting**  
+   - Each galaxy image was converted into a standardized format suitable for training the DNN.  
+   - Labels were assigned based on their **spectroscopic redshift values**.
+
 ## The Role of Deep Learning 🧠
 
 To enhance photometric redshift measurement, this research explores the use of **Deep Neural Networks (DNNs)**—specifically **DenseNet**, a convolutional neural network architecture. Unlike traditional regression methods, DNNs can detect complex patterns in **multi-band galaxy images**, leading to better estimations.
 
 ### Key Findings 📊
 1. **Larger Training Data Improves Accuracy**  
-   Models trained on 100% of the dataset performed significantly better than those trained on only 50%.
+   - The study used **59,861 galaxy images** from **SDSS DR10** for training and validation.
+   - Models trained on 100% of the dataset performed significantly better than those trained on only 50%.
 
 2. **Early Stopping Model vs. Cross-Validation Model**  
    - The **Early Stopping Model** (which saves the best performing model during training) produced more accurate results.
    - The **Cross-Validation Model** (which uses k-fold validation) also performed well but was slightly less effective.
 
 3. **The K-Correction Factor Dilemma**  
-   Applying **K-correction** (which adjusts for galaxy brightness variations due to redshift) unexpectedly reduced model accuracy. Future research is needed to train models with K-corrected data from the start.
+   - Applying **K-correction** (which adjusts for galaxy brightness variations due to redshift) unexpectedly reduced model accuracy.  
+   - Future research is needed to train models with K-corrected data from the start.
+
+4. **Deep Neural Networks Outperform Traditional Methods**  
+   - Compared to linear and non-linear regression techniques, **DNNs achieved higher precision** in photometric redshift estimation.
+   - The **DenseNet architecture** was particularly effective in extracting relevant features from galaxy images.
+
+5. **Computational Challenges** 🖥️  
+   - **Training DNNs requires significant computing power**, making optimization techniques like **dropout layers** and **batch normalization** essential.  
+   - The model was trained using Python and machine learning libraries on a **multi-core Xeon processor with NVIDIA Quadro GPU**.
+
+6. **Potential for Future AI-powered Astronomy**  
+   - AI models like this could help process **massive datasets** in future space surveys, such as those from the **Vera C. Rubin Observatory** or the **James Webb Space Telescope (JWST)**.  
+   - Further improvements—such as adding more filter bands or using generative models—could push accuracy even further.
 
 ## Future Prospects 🔮
 
