@@ -22,7 +22,7 @@ export default async function WorksPage() {
     return acc;
   }, {} as Record<string, number>);
 
-  const current = allWorks.find((work) => work?.slug === "spv.sicepat")!;
+  const current = allWorks.find((work) => work?.slug === "spv2.sicepat")!;
   const sorted = allWorks
     .filter((p) => p.published)
     .filter((work) => work?.slug !== current?.slug)
