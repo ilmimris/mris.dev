@@ -16,7 +16,7 @@ type Props = {
 
 const redis = Redis.fromEnv();
 
-export async function generateStaticParams(): Promise<Props["params"][]> {
+export async function generateStaticParams() {
 	return allWorks
 		.filter((w) => w.published)
 		.map((w) => ({
