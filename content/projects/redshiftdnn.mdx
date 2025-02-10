@@ -1,0 +1,39 @@
+---
+title: Using Deep Neural Networks to Measure Photometric Redshifts of Galaxies 🌌
+description: Explore how Deep Neural Networks enhance photometric redshift measurements in galaxies using SDSS data. Discover key findings on model accuracy and future prospects for AI in astrophysics.
+repository: ilmimris/redshift-dnn-thesis-mris
+url: https://scholar.google.com/citations?view_op=view_citation&hl=id&user=Cdgj7rUAAAAJ&citation_for_view=Cdgj7rUAAAAJ:u-x6o8ySG0sC
+date: 2019-04-11
+published: true
+---
+ 
+Understanding the distance of galaxies is a fundamental aspect of cosmology. It helps scientists determine key physical parameters such as mass, luminosity, star formation rate, and metallicity. One of the most accurate ways to measure these distances is through redshift—how much a galaxy’s light shifts due to the expansion of the universe.
+
+## The Challenge of Measuring Redshift 🔭
+
+Redshift can be determined using **spectroscopic** or **photometric** methods:
+- **Spectroscopic redshift** is highly accurate but requires expensive equipment and can only measure a limited number of bright galaxies.
+- **Photometric redshift** is less precise but allows scientists to analyze a much larger dataset using images from different filters.
+
+With the **Sloan Digital Sky Survey (SDSS) DR10 dataset**, which contains 250 times more photometric than spectroscopic data, leveraging machine learning to improve photometric redshift measurement becomes an exciting opportunity.
+
+## The Role of Deep Learning 🧠
+
+To enhance photometric redshift measurement, this research explores the use of **Deep Neural Networks (DNNs)**—specifically **DenseNet**, a convolutional neural network architecture. Unlike traditional regression methods, DNNs can detect complex patterns in **multi-band galaxy images**, leading to better estimations.
+
+### Key Findings 📊
+1. **Larger Training Data Improves Accuracy**  
+   Models trained on 100% of the dataset performed significantly better than those trained on only 50%.
+
+2. **Early Stopping Model vs. Cross-Validation Model**  
+   - The **Early Stopping Model** (which saves the best performing model during training) produced more accurate results.
+   - The **Cross-Validation Model** (which uses k-fold validation) also performed well but was slightly less effective.
+
+3. **The K-Correction Factor Dilemma**  
+   Applying **K-correction** (which adjusts for galaxy brightness variations due to redshift) unexpectedly reduced model accuracy. Future research is needed to train models with K-corrected data from the start.
+
+## Future Prospects 🔮
+
+The study highlights that **Deep Neural Networks** have great potential in astrophysics, especially in handling massive datasets like SDSS. However, further optimizations—such as data augmentation and additional filter bands—could improve performance even more.
+
+This approach paves the way for AI-powered astronomical research, helping scientists analyze the vast universe more efficiently. 🚀✨
