@@ -33,17 +33,15 @@ export default function Page() {
                   </h3>
 
                   <p className="mt-4 text-zinc-400">
-                    Results-oriented Backend Software Engineer with over 6 years
-                    of experience. Specialized in building high-impact
-                    applications that enhance operational efficiency. Pioneered
-                    the integration of Large Language Models (LLMs) into Qalboo
-                    chatbot, Qarib, significantly improving its ability to
-                    understand and respond to user inquiries. Led the
-                    development of a new attendance monitoring system,
-                    eliminating manual data entry and saving the company 90% in
-                    costs. Spearheaded the creation of an outsourcing
-                    request-fulfillment system, streamlining the recruitment
-                    process and enabling a 90% reduction in hiring time.
+                    Results-oriented Backend Software Engineer and IT Process
+                    Management Supervisor with over 6 years of experience in
+                    high-impact application development, process optimization,
+                    and operational efficiency enhancement. Proven expertise in
+                    designing solutions that reduce administrative workload by
+                    up to 80% and simplify complex workflows, achieving up to
+                    90% time savings in critical processes. Skilled in Web and
+                    API development (Go, Typescript, MongoDB), Large Language
+                    Models (LLMs), CI/CD, and automation with Streamlit and n8n.
                   </p>
                   <p className="mt-4 text-zinc-400">
                     Proven leadership skills in managing teams and guiding them
