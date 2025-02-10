@@ -9,9 +9,9 @@ import { Redis } from "@upstash/redis";
 export const revalidate = 60;
 
 type Props = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 const redis = Redis.fromEnv();
@@ -24,7 +24,8 @@ export async function generateStaticParams(): Promise<Props["params"][]> {
     }));
 }
 
-export default async function PostPage({ params }: Props) {
+export default async function PostPage(props: Props) {
+  const params = await props.params;
   const slug = params?.slug;
   const work = allWorks.find((work) => work.slug === slug);
 

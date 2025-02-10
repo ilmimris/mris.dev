@@ -1,5 +1,5 @@
 "use client";
-import { IsoDateTimeString } from "contentlayer/core";
+import { IsoDateTimeString } from "contentlayer2/core";
 import { ArrowLeft, Eye, Github, Twitter } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";

@@ -1,6 +1,6 @@
 import "../global.css";
-import { Inter } from "@next/font/google";
-import LocalFont from "@next/font/local";
+import { Inter } from "next/font/google";
+import LocalFont from "next/font/local";
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -11,7 +11,9 @@ export const metadata: Metadata = {
     default: "mris.dev",
     template: "%s | mris.dev",
   },
+
   description: "Muhammad Rafiul Ilmi Syarifudin, Results-oriented Backend Software Engineer with a passion in AI & ML for building high-impact applications that improve operational efficiency",
+
   openGraph: {
     title: "mris.dev",
     description:
@@ -28,6 +30,7 @@ export const metadata: Metadata = {
     locale: "en-US",
     type: "website",
   },
+
   robots: {
     index: true,
     follow: true,
@@ -39,13 +42,15 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+
   twitter: {
     title: "mris_ilmi",
     card: "summary_large_image",
   },
+
   icons: {
     shortcut: "/favicon.png",
-  },
+  }
 };
 const inter = Inter({
   subsets: ["latin"],
