@@ -1,0 +1,42 @@
+---
+export const prerender = true;
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Particles from "@/components/Particles.astro";
+
+const navigation = [
+  { name: "Profile", href: "/profile" },
+  { name: "Blogs", href: "/blogs" },
+  { name: "Works", href: "/works" },
+  { name: "Projects", href: "/projects" },
+  { name: "Contact", href: "/contact" },
+];
+---
+
+<BaseLayout>
+  <div class="flex flex-col items-center justify-center w-screen h-screen overflow-hidden bg-gradient-to-tl from-black via-zinc-600/20 to-black">
+    <nav class="my-16 animate-fade-in">
+      <ul class="flex items-center justify-center gap-4">
+        {navigation.map((item) => (
+          <li>
+            <a href={item.href} class="text-sm duration-500 text-zinc-500 hover:text-zinc-300">
+              {item.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <div class="hidden w-screen h-px animate-glow md:block animate-fade-left bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0"></div>
+    <Particles class="absolute inset-0 -z-10 animate-fade-in" quantity={100} />
+    <h1 class="z-10 text-4xl text-transparent duration-1000 bg-white cursor-default text-edge-outline animate-title font-display sm:text-6xl md:text-9xl whitespace-nowrap bg-clip-text">
+      Rafiul Ilmi
+    </h1>
+    <div class="hidden w-screen h-px animate-glow md:block animate-fade-right bg-gradient-to-r from-zinc-300/0 via-zinc-300/50 to-zinc-300/0"></div>
+    <div class="my-16 text-center animate-fade-in">
+      <h2 class="text-sm text-zinc-500 w-3/4 md:w-1/2 mx-auto">
+        Results-oriented Backend Software Engineer with a passion for building
+        high-impact applications that improve operational efficiency.
+      </h2>
+    </div>
+  </div>
+</BaseLayout>

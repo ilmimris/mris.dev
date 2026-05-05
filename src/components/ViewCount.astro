@@ -1,0 +1,31 @@
+---
+import { Eye } from "@lucide/astro";
+import { compactNumber, type CollectionName } from "@/lib/content";
+
+const {
+  collection,
+  slug,
+  value = 0,
+  iconClass = "w-4 h-4",
+  class: className = "text-zinc-500 text-xs flex items-center gap-1",
+  detailLink = false,
+} = Astro.props as {
+  collection: CollectionName;
+  slug: string;
+  value?: number;
+  iconClass?: string;
+  class?: string;
+  detailLink?: boolean;
+};
+---
+
+<span
+  class={className}
+  data-view-count
+  data-detail-link={detailLink ? "" : undefined}
+  data-collection={collection}
+  data-slug={slug}
+>
+  <Eye class={iconClass} />
+  <span data-view-count-value>{compactNumber(value)}</span>
+</span>

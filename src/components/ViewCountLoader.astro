@@ -1,0 +1,49 @@
+<script>
+  const nodes = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-view-count]"),
+  );
+
+  const grouped = nodes.reduce(
+    (acc, node) => {
+      const collection = node.dataset.collection;
+      const slug = node.dataset.slug;
+      if (!collection || !slug) return acc;
+      acc[collection] ??= new Set<string>();
+      acc[collection].add(slug);
+      return acc;
+    },
+    {} as Record<string, Set<string>>,
+  );
+
+  await Promise.all(
+    Object.entries(grouped).map(async ([collection, slugSet]) => {
+      const slugs = Array.from(slugSet);
+      const params = new URLSearchParams({
+        collection,
+        slugs: slugs.join(","),
+      });
+
+      try {
+        const response = await fetch(`/api/views?${params.toString()}`);
+        if (!response.ok) return;
+
+        const payload = await response.json();
+        const views = payload.views ?? {};
+
+        nodes
+          .filter((node) => node.dataset.collection === collection)
+          .forEach((node) => {
+            const value = views[node.dataset.slug ?? ""];
+            const target = node.querySelector("[data-view-count-value]");
+            if (target && typeof value === "number") {
+              target.textContent = Intl.NumberFormat("en-US", {
+                notation: "compact",
+              }).format(value);
+            }
+          });
+      } catch {
+        // Page navigation should never wait on analytics.
+      }
+    }),
+  );
+</script>

@@ -1,0 +1,50 @@
+---
+export const prerender = true;
+
+import { getCollection, getEntry, render } from "astro:content";
+import DetailHeader from "@/components/DetailHeader.astro";
+import MdxLightbox from "@/components/MdxLightbox.astro";
+import ReportView from "@/components/ReportView.astro";
+import ViewCountLoader from "@/components/ViewCountLoader.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { slugFromId, type BlogEntry } from "@/lib/content";
+
+export async function getStaticPaths() {
+  const posts: BlogEntry[] = await getCollection("blog");
+  return posts
+    .filter((post) => post.data.published)
+    .map((post: BlogEntry) => ({
+      params: { slug: slugFromId(post.id) },
+      props: { slug: slugFromId(post.id) },
+    }));
+}
+
+const { slug } = Astro.props as { slug: string };
+const blog = await getEntry("blog", slug);
+
+if (!blog || !blog.data.published) {
+  return new Response("Not found", { status: 404 });
+}
+
+const { Content } = await render(blog);
+const links = blog.data.tags
+  ? blog.data.tags.split(",").map((tag: string) => ({
+      label: tag.trim(),
+      href: `/tags/${tag.trim()}`,
+    }))
+  : [];
+---
+
+<BaseLayout title={blog.data.title}>
+  <div class="bg-zinc-50 min-h-screen">
+    <DetailHeader backHref="/blogs" title={blog.data.title} views={0} links={links} collection="blogs" slug={slug} />
+    <ReportView collection="blogs" slug={slug} />
+    <article class="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">
+      <div class="mdx">
+        <Content />
+      </div>
+    </article>
+    <MdxLightbox />
+    <ViewCountLoader />
+  </div>
+</BaseLayout>

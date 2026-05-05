@@ -1,0 +1,43 @@
+---
+import { ArrowLeft } from "@lucide/astro";
+---
+
+<header data-nav-sentinel>
+  <div
+    data-nav-bar
+    class="fixed inset-x-0 top-0 z-50 backdrop-blur duration-200 border-b bg-zinc-900/0 border-transparent"
+  >
+    <div class="container flex flex-row-reverse items-center justify-between p-6 mx-auto">
+      <div class="flex justify-between gap-8">
+        <a href="/profile" class="duration-200 text-zinc-400 hover:text-zinc-100">Profile</a>
+        <a href="/blogs" class="duration-200 text-zinc-400 hover:text-zinc-100">Blogs</a>
+        <a href="/works" class="duration-200 text-zinc-400 hover:text-zinc-100">Works</a>
+        <a href="/projects" class="duration-200 text-zinc-400 hover:text-zinc-100">Projects</a>
+        <a href="/contact" class="duration-200 text-zinc-400 hover:text-zinc-100">Contact</a>
+      </div>
+
+      <a href="/" class="duration-200 text-zinc-300 hover:text-zinc-100" aria-label="Back home">
+        <ArrowLeft class="w-6 h-6" />
+      </a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const sentinel = document.querySelector<HTMLElement>("[data-nav-sentinel]");
+  const bar = document.querySelector<HTMLElement>("[data-nav-bar]");
+
+  if (sentinel && bar) {
+    const setState = (isIntersecting: boolean) => {
+      bar.classList.toggle("bg-zinc-900/0", isIntersecting);
+      bar.classList.toggle("border-transparent", isIntersecting);
+      bar.classList.toggle("bg-zinc-900/50", !isIntersecting);
+      bar.classList.toggle("border-zinc-800", !isIntersecting);
+    };
+
+    const observer = new IntersectionObserver(([entry]) =>
+      setState(entry.isIntersecting),
+    );
+    observer.observe(sentinel);
+  }
+</script>

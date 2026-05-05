@@ -1,0 +1,31 @@
+<div class="spotlight-card group overflow-hidden relative duration-700 border rounded-xl hover:bg-zinc-800/10 md:gap-8 hover:border-zinc-400/50 border-zinc-600">
+  <div class="pointer-events-none">
+    <div class="absolute inset-0 z-0 transition duration-1000 [mask-image:linear-gradient(black,transparent)]"></div>
+    <div class="spotlight-card__glow absolute inset-0 z-10 bg-gradient-to-br opacity-100 via-zinc-100/10 transition duration-1000 group-hover:opacity-50"></div>
+    <div class="spotlight-card__glow absolute inset-0 z-10 opacity-0 mix-blend-overlay transition duration-1000 group-hover:opacity-100"></div>
+  </div>
+  <slot />
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".spotlight-card").forEach((card) => {
+    if (card.dataset.spotlightReady) return;
+    card.dataset.spotlightReady = "true";
+
+    const glows = Array.from(
+      card.querySelectorAll<HTMLElement>(".spotlight-card__glow"),
+    );
+
+    card.addEventListener("mousemove", (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      const mask = `radial-gradient(240px at ${x}px ${y}px, white, transparent)`;
+
+      for (const glow of glows) {
+        glow.style.maskImage = mask;
+        glow.style.setProperty("-webkit-mask-image", mask);
+      }
+    });
+  });
+</script>

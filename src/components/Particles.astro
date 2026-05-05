@@ -1,0 +1,127 @@
+---
+const { quantity = 100, class: className = "" } = Astro.props;
+---
+
+<div class={className} data-particles data-quantity={quantity} aria-hidden="true">
+  <canvas></canvas>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-particles]").forEach((container) => {
+    const canvas = container.querySelector("canvas");
+    const context = canvas?.getContext("2d");
+    if (!canvas || !context) return;
+
+    const quantity = Number(container.dataset.quantity ?? 30);
+    const mouse = { x: 0, y: 0 };
+    const size = { w: 0, h: 0 };
+    const circles: Array<{
+      x: number;
+      y: number;
+      translateX: number;
+      translateY: number;
+      size: number;
+      alpha: number;
+      targetAlpha: number;
+      dx: number;
+      dy: number;
+      magnetism: number;
+    }> = [];
+
+    const getDpr = () => window.devicePixelRatio || 1;
+
+    const circleParams = () => ({
+      x: Math.floor(Math.random() * size.w),
+      y: Math.floor(Math.random() * size.h),
+      translateX: 0,
+      translateY: 0,
+      size: Math.floor(Math.random() * 2) + 0.1,
+      alpha: 0,
+      targetAlpha: Number((Math.random() * 0.6 + 0.1).toFixed(1)),
+      dx: (Math.random() - 0.5) * 0.2,
+      dy: (Math.random() - 0.5) * 0.2,
+      magnetism: 0.1 + Math.random() * 4,
+    });
+
+    const drawCircle = (circle: (typeof circles)[number], update = false) => {
+      const dpr = getDpr();
+      context.translate(circle.translateX, circle.translateY);
+      context.beginPath();
+      context.arc(circle.x, circle.y, circle.size, 0, 2 * Math.PI);
+      context.fillStyle = `rgba(255, 255, 255, ${circle.alpha})`;
+      context.fill();
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if (!update) circles.push(circle);
+    };
+
+    const clear = () => context.clearRect(0, 0, size.w, size.h);
+
+    const resize = () => {
+      const dpr = getDpr();
+      circles.length = 0;
+      size.w = container.offsetWidth;
+      size.h = container.offsetHeight;
+      canvas.width = size.w * dpr;
+      canvas.height = size.h * dpr;
+      canvas.style.width = `${size.w}px`;
+      canvas.style.height = `${size.h}px`;
+      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      clear();
+      for (let i = 0; i < quantity; i++) drawCircle(circleParams());
+    };
+
+    const remap = (value: number, start1: number, end1: number, start2: number, end2: number) =>
+      Math.max(((value - start1) * (end2 - start2)) / (end1 - start1) + start2, 0);
+
+    const animate = () => {
+      clear();
+      circles.forEach((circle, index) => {
+        const edge = [
+          circle.x + circle.translateX - circle.size,
+          size.w - circle.x - circle.translateX - circle.size,
+          circle.y + circle.translateY - circle.size,
+          size.h - circle.y - circle.translateY - circle.size,
+        ];
+        const closestEdge = Math.min(...edge);
+        const mappedEdge = Number(remap(closestEdge, 0, 20, 0, 1).toFixed(2));
+
+        if (mappedEdge > 1) {
+          circle.alpha = Math.min(circle.alpha + 0.02, circle.targetAlpha);
+        } else {
+          circle.alpha = circle.targetAlpha * mappedEdge;
+        }
+
+        circle.x += circle.dx;
+        circle.y += circle.dy;
+        circle.translateX += (mouse.x / (50 / circle.magnetism) - circle.translateX) / 50;
+        circle.translateY += (mouse.y / (50 / circle.magnetism) - circle.translateY) / 50;
+
+        if (
+          circle.x < -circle.size ||
+          circle.x > size.w + circle.size ||
+          circle.y < -circle.size ||
+          circle.y > size.h + circle.size
+        ) {
+          circles.splice(index, 1);
+          drawCircle(circleParams());
+        } else {
+          drawCircle(circle, true);
+        }
+      });
+      window.requestAnimationFrame(animate);
+    };
+
+    window.addEventListener("mousemove", (event) => {
+      const rect = canvas.getBoundingClientRect();
+      const x = event.clientX - rect.left - size.w / 2;
+      const y = event.clientY - rect.top - size.h / 2;
+      if (x < size.w / 2 && x > -size.w / 2 && y < size.h / 2 && y > -size.h / 2) {
+        mouse.x = x;
+        mouse.y = y;
+      }
+    });
+    window.addEventListener("resize", resize);
+    resize();
+    animate();
+  });
+</script>

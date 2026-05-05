@@ -1,0 +1,69 @@
+---
+export const prerender = true;
+
+import { getCollection, getEntry, render } from "astro:content";
+import DetailHeader from "@/components/DetailHeader.astro";
+import MdxLightbox from "@/components/MdxLightbox.astro";
+import ReportView from "@/components/ReportView.astro";
+import ViewCountLoader from "@/components/ViewCountLoader.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { slugFromId, type ProjectEntry } from "@/lib/content";
+
+export async function getStaticPaths() {
+  const projects: ProjectEntry[] = await getCollection("projects");
+  return projects
+    .filter((project) => project.data.published)
+    .map((project: ProjectEntry) => ({
+      params: { slug: slugFromId(project.id) },
+      props: { slug: slugFromId(project.id) },
+    }));
+}
+
+const { slug } = Astro.props as { slug: string };
+const project = await getEntry("projects", slug);
+
+if (!project || !project.data.published) {
+  return new Response("Not found", { status: 404 });
+}
+
+const { Content } = await render(project);
+const links = [];
+
+if (project.data.repository) {
+  links.push({
+    label: "GitHub",
+    href: `https://github.com/${project.data.repository}`,
+    external: true,
+  });
+}
+
+if (project.data.url) {
+  links.push({
+    label: "Website",
+    href: project.data.url,
+    external: true,
+  });
+}
+---
+
+<BaseLayout title={project.data.title} description={project.data.description}>
+  <div class="bg-zinc-50 min-h-screen">
+    <DetailHeader
+      backHref="/projects"
+      title={project.data.title}
+      description={project.data.description}
+      views={0}
+      links={links}
+      collection="projects"
+      slug={slug}
+    />
+    <ReportView collection="projects" slug={slug} />
+    <article class="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">
+      <div class="mdx">
+        <Content />
+      </div>
+    </article>
+    <MdxLightbox />
+    <ViewCountLoader />
+  </div>
+</BaseLayout>

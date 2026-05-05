@@ -1,0 +1,21 @@
+---
+import ViewCount from "@/components/ViewCount.astro";
+import { formatDate, slugFromId, type BlogEntry } from "@/lib/content";
+
+const { blog, views = 0 } = Astro.props as { blog: BlogEntry; views: number };
+const slug = slugFromId(blog.id);
+---
+
+<a href={`/blogs/${slug}`}>
+  <article class="p-4 md:p-8">
+    <div class="flex justify-between gap-2 items-center">
+      <span class="text-xs duration-1000 text-zinc-200 group-hover:text-white group-hover:border-zinc-200 drop-shadow-orange">
+        {blog.data.date ? <time datetime={blog.data.date.toISOString()}>{formatDate(blog.data.date)}</time> : <span>SOON</span>}
+      </span>
+      <ViewCount collection="blogs" slug={slug} value={views} />
+    </div>
+    <h2 class="z-20 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
+      {blog.data.title}
+    </h2>
+  </article>
+</a>

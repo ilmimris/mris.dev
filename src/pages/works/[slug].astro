@@ -1,0 +1,54 @@
+---
+export const prerender = true;
+
+import { getCollection, getEntry, render } from "astro:content";
+import DetailHeader from "@/components/DetailHeader.astro";
+import MdxLightbox from "@/components/MdxLightbox.astro";
+import ReportView from "@/components/ReportView.astro";
+import ViewCountLoader from "@/components/ViewCountLoader.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { formatDate, slugFromId, type WorkEntry } from "@/lib/content";
+
+export async function getStaticPaths() {
+  const works: WorkEntry[] = await getCollection("works");
+  return works
+    .filter((work) => work.data.published)
+    .map((work: WorkEntry) => ({
+      params: { slug: slugFromId(work.id) },
+      props: { slug: slugFromId(work.id) },
+    }));
+}
+
+const { slug } = Astro.props as { slug: string };
+const work = await getEntry("works", slug);
+
+if (!work || !work.data.published) {
+  return new Response("Not found", { status: 404 });
+}
+
+const { Content } = await render(work);
+const until = work.data.until && work.data.until !== "now" ? formatDate(work.data.until) : "Present";
+const dateLine = `${work.data.from ? formatDate(work.data.from) : "Now"} - ${until}`;
+---
+
+<BaseLayout title={work.data.position}>
+  <div class="bg-zinc-50 min-h-screen">
+    <DetailHeader
+      backHref="/works"
+      title={work.data.position}
+      description={work.data.company}
+      dateLine={dateLine}
+      views={0}
+      collection="works"
+      slug={slug}
+    />
+    <ReportView collection="works" slug={slug} />
+    <article class="px-4 py-12 mx-auto prose prose-zinc prose-quoteless">
+      <div class="mdx">
+        <Content />
+      </div>
+    </article>
+    <MdxLightbox />
+    <ViewCountLoader />
+  </div>
+</BaseLayout>

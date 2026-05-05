@@ -1,0 +1,11 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+const { title = "mris.dev", description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="relative min-h-screen bg-gradient-to-tl from-zinc-900 via-zinc-400/10 to-zinc-900">
+    <slot />
+  </div>
+</BaseLayout>

@@ -1,0 +1,109 @@
+---
+import { ArrowLeft, Code, MessageCircle } from "@lucide/astro";
+import ViewCount from "@/components/ViewCount.astro";
+import type { CollectionName } from "@/lib/content";
+
+type LinkItem = { label: string; href: string; external?: boolean };
+
+const {
+  backHref,
+  title,
+  description,
+  views = 0,
+  links = [],
+  dateLine,
+  collection,
+  slug,
+} = Astro.props as {
+  backHref: string;
+  title: string;
+  description?: string;
+  views: number;
+  links?: LinkItem[];
+  dateLine?: string;
+  collection?: CollectionName;
+  slug?: string;
+};
+---
+
+<header data-detail-sentinel class="relative isolate overflow-hidden bg-gradient-to-tl from-black via-zinc-900 to-black">
+  <div
+    data-detail-bar
+    class="fixed inset-x-0 top-0 z-50 backdrop-blur lg:backdrop-blur-none duration-200 border-b lg:bg-transparent bg-zinc-900/0 border-transparent"
+  >
+    <div class="container flex flex-row-reverse items-center justify-between p-6 mx-auto">
+      <div class="flex justify-between gap-8">
+        {collection && slug && (
+          <ViewCount
+            collection={collection}
+            slug={slug}
+            value={views}
+            iconClass="w-5 h-5"
+            class="duration-200 hover:font-medium flex items-center gap-1 text-zinc-400 hover:text-zinc-100"
+            detailLink
+          />
+        )}
+        <a target="_blank" href="https://twitter.com/mris_ilmi" aria-label="Twitter">
+          <MessageCircle data-detail-icon class="w-6 h-6 duration-200 hover:font-medium text-zinc-400 hover:text-zinc-100" />
+        </a>
+        <a target="_blank" href="https://github.com/ilmimris" aria-label="GitHub">
+          <Code data-detail-icon class="w-6 h-6 duration-200 hover:font-medium text-zinc-400 hover:text-zinc-100" />
+        </a>
+      </div>
+
+      <a href={backHref} data-detail-link class="duration-200 hover:font-medium text-zinc-400 hover:text-zinc-100" aria-label="Back">
+        <ArrowLeft class="w-6 h-6" />
+      </a>
+    </div>
+  </div>
+  <div class="container mx-auto relative isolate overflow-hidden py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 text-center flex flex-col items-center">
+      <div class="mx-auto max-w-2xl lg:mx-0">
+        <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl font-display">
+          {title}
+        </h1>
+        {description && <p class="mt-6 text-lg leading-8 text-zinc-300">{description}</p>}
+        {dateLine && <p class="mt-6 text-base leading-7 text-zinc-400">{dateLine}</p>}
+      </div>
+
+      {links.length > 0 && (
+        <div class="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
+          <div class="grid grid-cols-1 gap-y-6 gap-x-8 text-base font-semibold leading-7 text-white sm:grid-cols-2 md:flex lg:gap-x-10">
+            {links.map((link) => (
+              <a target={link.external ? "_blank" : undefined} href={link.href}>
+                {link.label} <span aria-hidden="true">&rarr;</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</header>
+
+<script>
+  const sentinel = document.querySelector<HTMLElement>("[data-detail-sentinel]");
+  const bar = document.querySelector<HTMLElement>("[data-detail-bar]");
+  const links = document.querySelectorAll<HTMLElement>("[data-detail-link], [data-detail-icon]");
+
+  if (sentinel && bar) {
+    const setState = (isIntersecting: boolean) => {
+      bar.classList.toggle("bg-zinc-900/0", isIntersecting);
+      bar.classList.toggle("border-transparent", isIntersecting);
+      bar.classList.toggle("bg-white/10", !isIntersecting);
+      bar.classList.toggle("border-zinc-200", !isIntersecting);
+
+      links.forEach((link) => {
+        link.classList.toggle("text-zinc-400", isIntersecting);
+        link.classList.toggle("hover:text-zinc-100", isIntersecting);
+        link.classList.toggle("text-zinc-600", !isIntersecting);
+        link.classList.toggle("hover:text-zinc-900", !isIntersecting);
+      });
+    };
+
+    const observer = new IntersectionObserver(([entry]) =>
+      setState(entry.isIntersecting),
+    );
+    observer.observe(sentinel);
+  }
+</script>

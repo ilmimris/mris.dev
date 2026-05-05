@@ -1,0 +1,16 @@
+---
+const { collection, slug } = Astro.props as {
+  collection: "blogs" | "projects" | "works";
+  slug: string;
+};
+---
+
+<script is:inline define:vars={{ collection, slug }}>
+  fetch("/api/incr", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ collection, slug }),
+  }).catch(() => {});
+</script>

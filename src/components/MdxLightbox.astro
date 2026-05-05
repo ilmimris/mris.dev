@@ -1,0 +1,30 @@
+<div class="mdx-lightbox" data-mdx-lightbox aria-hidden="true">
+  <img alt="" data-mdx-lightbox-image />
+</div>
+
+<script>
+  const lightbox = document.querySelector<HTMLElement>("[data-mdx-lightbox]");
+  const lightboxImage = document.querySelector<HTMLImageElement>("[data-mdx-lightbox-image]");
+
+  if (lightbox && lightboxImage) {
+    document.querySelectorAll<HTMLImageElement>(".mdx img").forEach((image) => {
+      image.addEventListener("click", () => {
+        lightboxImage.src = image.currentSrc || image.src;
+        lightboxImage.alt = image.alt;
+        lightbox.classList.add("is-open");
+        lightbox.setAttribute("aria-hidden", "false");
+      });
+    });
+
+    const close = () => {
+      lightbox.classList.remove("is-open");
+      lightbox.setAttribute("aria-hidden", "true");
+      lightboxImage.removeAttribute("src");
+    };
+
+    lightbox.addEventListener("click", close);
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") close();
+    });
+  }
+</script>

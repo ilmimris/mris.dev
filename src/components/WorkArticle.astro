@@ -1,0 +1,26 @@
+---
+import ViewCount from "@/components/ViewCount.astro";
+import { formatDate, slugFromId, type WorkEntry } from "@/lib/content";
+
+const { work, views = 0 } = Astro.props as { work: WorkEntry; views: number };
+const slug = slugFromId(work.id);
+---
+
+<a href={`/works/${slug}`}>
+  <article class="p-4 md:p-8">
+    <div class="flex justify-between gap-2 items-center">
+      <span class="text-xs duration-1000 text-zinc-200 group-hover:text-white group-hover:border-zinc-200 drop-shadow-orange">
+        {work.data.from ? <time datetime={work.data.from.toISOString()}>{formatDate(work.data.from)}</time> : <span>Now</span>}
+        {" - "}
+        {work.data.until && work.data.until !== "now" ? <time datetime={new Date(work.data.until).toISOString()}>{formatDate(work.data.until)}</time> : <span>Present</span>}
+      </span>
+      <ViewCount collection="works" slug={slug} value={views} />
+    </div>
+    <h2 class="z-20 text-xl font-medium duration-1000 lg:text-3xl text-zinc-200 group-hover:text-white font-display">
+      {work.data.position}
+    </h2>
+    <p class="z-20 mt-4 text-sm duration-1000 text-zinc-400 group-hover:text-zinc-200">
+      {work.data.company}
+    </p>
+  </article>
+</a>
