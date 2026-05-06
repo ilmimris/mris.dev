@@ -2,6 +2,7 @@
 export const prerender = true;
 
 import { getCollection, getEntry, render } from "astro:content";
+import CommentSection from "@/components/CommentSection.astro";
 import DetailHeader from "@/components/DetailHeader.astro";
 import MdxLightbox from "@/components/MdxLightbox.astro";
 import ReportView from "@/components/ReportView.astro";
@@ -63,6 +64,7 @@ if (project.data.url) {
         <Content />
       </div>
     </article>
+    <CommentSection collection="projects" slug={slug} />
     <MdxLightbox />
     <ViewCountLoader />
   </div>

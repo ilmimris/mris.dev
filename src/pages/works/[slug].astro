@@ -2,6 +2,7 @@
 export const prerender = true;
 
 import { getCollection, getEntry, render } from "astro:content";
+import CommentSection from "@/components/CommentSection.astro";
 import DetailHeader from "@/components/DetailHeader.astro";
 import MdxLightbox from "@/components/MdxLightbox.astro";
 import ReportView from "@/components/ReportView.astro";
@@ -48,6 +49,7 @@ const dateLine = `${work.data.from ? formatDate(work.data.from) : "Now"} - ${unt
         <Content />
       </div>
     </article>
+    <CommentSection collection="works" slug={slug} />
     <MdxLightbox />
     <ViewCountLoader />
   </div>
