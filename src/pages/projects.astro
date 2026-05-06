@@ -11,7 +11,7 @@ import GradientLayout from "@/layouts/GradientLayout.astro";
 import { formatDate, slugFromId, type ProjectEntry } from "@/lib/content";
 
 const projects: ProjectEntry[] = await getCollection("projects");
-const featured = projects.find((project) => slugFromId(project.id) === "redshiftdnn");
+const featured = projects.find((project) => slugFromId(project.id) === "wilayah-indonesia");
 const top2 = projects.find((project) => slugFromId(project.id) === "covid19");
 const top3 = projects.find((project) => slugFromId(project.id) === "wedding");
 const pinned = new Set([featured, top2, top3].filter(Boolean).map((project) => slugFromId(project!.id)));
