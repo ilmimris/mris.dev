@@ -1,0 +1,131 @@
+---
+title: "Islamic Companion Skill"
+description: "Unified CLI for prayer times, fasting schedules, Zakat calculations, and Quran search"
+repository: "https://github.com/ilmimris/islamic-skills"
+url: "https://github.com/ilmimris/islamic-skills"
+date: 2026-05-06
+tags: bash, python, islamic, prayer, quran, automation
+published: true
+---
+
+## What Is It?
+
+**Islamic Companion Skill** is a unified CLI tool that consolidates Islamic utilities into a single command-line interface. It provides prayer times, fasting schedules, Zakat calculations, Quran search, and more — all with shared configuration and efficient caching.
+
+## Why Build It?
+
+Islamic tools are often scattered across multiple apps and websites. Each one has its own interface, its own configuration, its own API calls. This project brings everything together into one place.
+
+The goal: a **single CLI** that handles all your Islamic utility needs, with minimal API calls and maximum efficiency through local caching.
+
+## Features
+
+### Prayer Times
+Get daily prayer times (Fajr, Dhuhr, Asr, Maghrib, Isha) for any location.
+
+```bash
+./bin/islamic-companion prayer --today --lat -6.2088 --long 106.8456 --tz Asia/Jakarta
+```
+
+### Fasting Schedule
+Check Imsak and Maghrib times for fasting days.
+
+```bash
+./bin/islamic-companion fasting --today
+```
+
+### Zakat Calculator
+Calculate Nisab thresholds for Gold and Silver based on current market prices.
+
+```bash
+./bin/islamic-companion zakat --nisab
+```
+
+### Quran Search
+Search for verses by keyword or fetch specific Surah/Ayah with translation.
+
+```bash
+./bin/islamic-companion quran --search "sabar"
+./bin/islamic-companion quran --surah 1
+./bin/islamic-companion quran --surah 2 --ayah 255
+```
+
+### Monthly Calendar
+Generate a monthly prayer schedule for any city.
+
+```bash
+./bin/islamic-companion calendar --city "Serang" --month 2 --year 2026
+```
+
+### Daily Quotes
+Fetch and display random Islamic quotes or set up daily automation.
+
+```bash
+./bin/islamic-companion quotes --random
+```
+
+### Prayer Reminders
+Generate OpenClaw cron commands to schedule daily prayer reminders.
+
+```bash
+./bin/islamic-companion prayer --sync
+```
+
+## Configuration
+
+Edit `config.json` to set your calculation method and preferences:
+
+```json
+{
+  "calculation": {
+    "method": 20,
+    "school": 0
+  },
+  "zakat": {
+    "currency": "IDR",
+    "gold_gram_threshold": 85,
+    "api_key": ""
+  },
+  "timezone": "Asia/Jakarta",
+  "quran_language": "id"
+}
+```
+
+### Calculation Methods
+- **Method 20:** Kemenag RI (Indonesia)
+- **School 0:** Standard (Shafi, Maliki, Hanbali)
+- **School 1:** Hanafi
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| CLI | Bash |
+| Calculations | Python |
+| Caching | Local filesystem |
+| APIs | Aladhan, Quran.com |
+
+## Caching
+
+The tool minimizes API calls by caching daily results locally. This means:
+- **Faster responses** — No network delay for cached data
+- **Offline support** — Works without internet for cached days
+- **Rate limit friendly** — Respects API rate limits
+
+## Use Cases
+
+- **Daily prayer tracking** — Know your prayer times at a glance
+- **Fasting reminders** — Track Imsak and Maghrib times
+- **Zakat calculation** — Calculate your Zakat obligations
+- **Quran study** — Search and read verses with translation
+- **Automation** — Integrate with OpenClaw for daily reminders
+- **Travel planning** — Get prayer times for any city worldwide
+
+## Links
+
+- **Source:** [github.com/ilmimris/islamic-skills](https://github.com/ilmimris/islamic-skills)
+- **License:** Not specified
+
+---
+
+*Built with Bash and Python. Open source and free to use.*

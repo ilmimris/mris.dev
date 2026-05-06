@@ -1,0 +1,102 @@
+---
+title: "WA Mock API"
+description: "Generate realistic WhatsApp chat screenshots from JSON message data"
+repository: "https://github.com/ilmimris/wa-mock-api"
+url: "https://github.com/ilmimris/wa-mock-api"
+date: 2026-05-06
+tags: javascript, api, whatsapp, mockup, puppeteer
+published: true
+---
+
+## What Is It?
+
+**WA Mock API** is a RESTful API that converts JSON message history into realistic WhatsApp-style chat screenshots. It generates high-quality, realistic-looking WhatsApp chat images from provided message data and returns them as base64-encoded images.
+
+## Why Build It?
+
+Need to create WhatsApp chat mockups for:
+- **UI/UX presentations** — Show conversation flows without real screenshots
+- **Testing** — Generate chat data for automated testing
+- **Documentation** — Create consistent chat examples
+- **Marketing** — Product demos with realistic chat interfaces
+
+Instead of manually crafting screenshots or using clunky web tools, this API lets you generate them programmatically from structured JSON.
+
+## API at a Glance
+
+```
+POST /api/whatsapp-screenshot
+```
+
+**Request Body:**
+```json
+{
+  "messages": [
+    {
+      "sender": "Customer",
+      "text": "Hello, I need help with my order",
+      "timestamp": "10:30 AM",
+      "type": "customer"
+    },
+    {
+      "sender": "Bot",
+      "text": "Sure! I'd be happy to help. What's your order number?",
+      "timestamp": "10:31 AM",
+      "type": "bot"
+    }
+  ]
+}
+```
+
+**Response:** Base64-encoded WhatsApp-style chat screenshot.
+
+## Features
+
+- **JSON to Screenshot** — Convert message history to realistic WhatsApp UI
+- **Customizable Output** — Width, quality, format, header display options
+- **Realistic UI** — Proper message bubbles, timestamps, and styling
+- **Bot vs Customer** — Distinct message styles for each sender type
+- **Responsive Design** — Works across different screen sizes
+- **Base64 Output** — Easy to embed in web apps or save as images
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Runtime | Node.js 18+ |
+| Framework | Express.js |
+| Browser | Puppeteer (Chromium) |
+| Container | Docker |
+
+## Quick Start
+
+### Using Docker
+```bash
+docker build -t wa-mock-api .
+docker run -p 3000:3000 wa-mock-api
+```
+
+### Manual Setup
+```bash
+git clone https://github.com/ilmimris/wa-mock-api.git
+cd wa-mock-api
+npm install
+npm run dev
+```
+
+## Use Cases
+
+- **Customer support demos** — Show chatbot conversations
+- **UI testing** — Generate consistent chat screenshots
+- **Documentation** — Create realistic chat examples
+- **Marketing materials** — Product screenshots without real data
+- **Training** — Simulated customer interactions
+
+## Links
+
+- **Source:** [github.com/ilmimris/wa-mock-api](https://github.com/ilmimris/wa-mock-api)
+- **License:** MIT
+
+---
+
+*Built with Node.js, Express, and Puppeteer. Open source and free to use.*
