@@ -5,6 +5,18 @@ import Card from "@/components/Card.astro";
 import Navigation from "@/components/Navigation.astro";
 import GradientLayout from "@/layouts/GradientLayout.astro";
 import data from "@/data/profile.json";
+import { getCollection } from "astro:content";
+import { formatDate, slugFromId, type WorkEntry } from "@/lib/content";
+
+const latestWorks: WorkEntry[] = (await getCollection("works"))
+  .filter((work) => work.data.published)
+  .sort((a, b) => {
+    const aTime = a.data.from?.getTime() ?? 0;
+    const bTime = b.data.from?.getTime() ?? 0;
+
+    return bTime - aTime;
+  })
+  .slice(0, 3);
 ---
 
 <GradientLayout title="Profile">
@@ -30,14 +42,14 @@ import data from "@/data/profile.json";
                   Muhammad Rafiul Ilmi Syarifudin
                 </h2>
                 <h3 class="mt-4 text-xl font-normal text-zinc-100">
-                  Lead Software Engineer | AI & ML Enthusiast
+                  Unit Head Process and Data Management & AI | Lead Software Engineer
                 </h3>
 
                 <p class="mt-4 text-zinc-400">
-                  Results-oriented Backend Software Engineer and IT Process Management Supervisor with over 6 years of experience in high-impact application development, process optimization, and operational efficiency enhancement. Proven expertise in designing solutions that reduce administrative workload by up to 80% and simplify complex workflows, achieving up to 90% time savings in critical processes. Skilled in Web and API development (Go, Typescript, MongoDB), Large Language Models (LLMs), CI/CD, and automation with Streamlit and n8n.
+                  Results-oriented engineering and process management leader with over 7 years of experience building high-impact systems, improving operational workflows, and guiding data, infrastructure, and AI initiatives. Recent work includes directing data maturity assessments, Kubernetes migration planning, infrastructure cost optimization, automation platform enablement, fraud-detection chatbot implementation, and OCR/object recognition for document processing.
                 </p>
                 <p class="mt-4 text-zinc-400">
-                  Proven leadership skills in managing teams and guiding them to achieve project goals. Adept in Web and API development, with a strong background in Go, Typescript, Python, MongoDB, RDBMS, Docker, and Gitlab CI. Eager to bring expertise and leadership abilities to your team, contributing to mutual success.
+                  Proven leadership skills in managing engineers and cross-functional delivery across backend systems, business process documentation, platform operations, and AI-assisted automation. Strong hands-on background in Go, TypeScript, Python, MongoDB, PostgreSQL, Redis, Kafka, Docker, Kubernetes, GitLab CI, Terraform, LLMs, n8n, BPMN, and DMN.
                 </p>
                 <p class="mt-4 text-zinc-400">
                   "Success is not measured by lines of code, but by the problems solved and the value delivered."
@@ -47,6 +59,40 @@ import data from "@/data/profile.json";
           </Card>
         </div>
       </div>
+      <div class="w-full h-px bg-zinc-800"></div>
+
+      <div class="flex flex-col gap-4">
+        <div>
+          <h2 class="text-2xl font-normal text-zinc-100">Latest Work</h2>
+          <p class="mt-2 text-zinc-400">
+            Recent roles and initiatives from my work timeline.
+          </p>
+        </div>
+
+        <div class="grid w-full grid-cols-1 gap-8 lg:grid-cols-3">
+          {latestWorks.map((work) => (
+            <Card>
+              <a href={`/works/${slugFromId(work.id)}`} class="block h-full">
+                <article class="flex h-full flex-col p-8">
+                  <div class="text-xs text-zinc-400">
+                    {work.data.from ? <time datetime={work.data.from.toISOString()}>{formatDate(work.data.from)}</time> : <span>Now</span>}
+                    {" - "}
+                    {work.data.until && work.data.until !== "now" ? <time datetime={new Date(work.data.until).toISOString()}>{formatDate(work.data.until)}</time> : <span>Present</span>}
+                  </div>
+                  <h3 class="mt-4 text-xl font-medium text-zinc-100">
+                    {work.data.position}
+                  </h3>
+                  <p class="mt-2 text-sm text-zinc-400">{work.data.company}</p>
+                  <p class="mt-6 text-sm text-zinc-200">
+                    Read more <span aria-hidden="true">&rarr;</span>
+                  </p>
+                </article>
+              </a>
+            </Card>
+          ))}
+        </div>
+      </div>
+
       <div class="w-full h-px bg-zinc-800"></div>
       <h2 class="mt-4 text-2xl font-normal text-zinc-100">Skills</h2>
 
