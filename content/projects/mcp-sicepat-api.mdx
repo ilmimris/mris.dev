@@ -1,0 +1,69 @@
+---
+title: "MCP Sicepat API"
+description: "TypeScript MCP server for interacting with SiCepat's logistics and career APIs"
+repository: "https://gitlab.sicepat.tech/ilmimris/mcp-sicepat-api"
+url: "https://gitlab.sicepat.tech/ilmimris/mcp-sicepat-api"
+date: 2025-03-17
+tags: typescript, mcp, api, logistics, sicepat
+published: true
+---
+
+## What Is It?
+
+**MCP Sicepat API** is a TypeScript-based MCP (Model Context Protocol) server that provides tools for interacting with SiCepat's logistics and career APIs. It enables AI agents and applications to track shipments, check tariffs, find locations, and search for job vacancies.
+
+## Why Build It?
+
+SiCepat's APIs are powerful but require direct integration. This MCP server abstracts away the complexity, providing a clean interface for AI agents to interact with SiCepat's services without needing to understand the underlying API structure.
+
+## Features
+
+### Tools
+
+- **`track_airwaybill`** — Track a SiCepat shipment
+  - Requires 12-digit airwaybill number
+  - Returns shipment tracking information
+
+- **`find_origin`** — Find origin location details
+  - Requires location name (min 3 chars)
+  - Returns origin location information
+
+- **`find_destination`** — Find destination location details
+  - Requires location name (min 3 chars)
+  - Returns destination location information
+
+- **`check_tariff`** — Check shipping tariff
+  - Requires origin, destination and weight (kg)
+  - Returns tariff information
+
+- **`get_vacancies`** — Get job vacancies
+  - Optional per_page parameter (1-100)
+  - Returns list of open positions
+
+- **`find_nearby_branches`** — Find nearby SiCepat branches
+  - Requires location keyword
+  - Returns list of nearby branches
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Language | TypeScript |
+| Protocol | MCP (Model Context Protocol) |
+| API | SiCepat Logistics API |
+
+## Use Cases
+
+- **AI Chatbots** — Enable AI agents to track packages and check tariffs
+- **Customer Support** — Automate shipment tracking and location queries
+- **Job Search** — Integrate vacancy search into career platforms
+- **Logistics Tools** — Build custom logistics dashboards
+
+## Links
+
+- **Source:** [gitlab.sicepat.tech/ilmimris/mcp-sicepat-api](https://gitlab.sicepat.tech/ilmimris/mcp-sicepat-api)
+- **License:** Not specified
+
+---
+
+*Built with TypeScript and MCP. Internal project for SiCepat.*

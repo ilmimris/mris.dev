@@ -1,0 +1,91 @@
+---
+title: "Snowy"
+description: "Conversational BI tool that translates natural language to Snowflake SQL"
+repository: "https://gitlab.sicepat.tech/ilmimris/snowy"
+url: "https://gitlab.sicepat.tech/ilmimris/snowy"
+date: 2025-04-28
+tags: python, bi, snowflake, llm, streamlit, analytics
+published: true
+---
+
+## What Is It?
+
+**Snowy** is a Streamlit-based conversational Business Intelligence tool that interprets natural language queries, translates them to SQL, and visualizes data from Snowflake. It uses Google's Gemini Pro LLM to power the natural language to SQL translation.
+
+## Why Build It?
+
+Business intelligence tools typically require users to know SQL or navigate complex UIs. Snowy lets anyone ask questions in plain language and get visualized answers — democratizing data access across the organization.
+
+## How It Works
+
+1. **User asks a question** in natural language
+2. **LLM translates** the query to Snowflake SQL
+3. **Query executes** against Snowflake with secure key-pair authentication
+4. **Results visualized** with adaptive chart types based on the data
+5. **Query transparency** — users see the SQL that was generated
+
+## Features
+
+- **Natural language interface** — Ask questions in plain language
+- **LLM-powered translation** — Uses Google Gemini Pro for SQL generation
+- **Secure Snowflake connectivity** — Key-pair authentication, no passwords
+- **Adaptive visualization** — Chart types adapt to query results
+- **Query transparency** — See the SQL behind every answer
+- **Error handling** — Graceful handling of failed queries
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Language | Python 3.8+ |
+| UI | Streamlit |
+| Database | Snowflake |
+| LLM | Google Gemini Pro |
+| Auth | Key-pair authentication |
+
+## Prerequisites
+
+- Python 3.8+
+- Snowflake account with appropriate permissions
+- Google Cloud API key for Gemini Pro
+- Private key for Snowflake authentication
+
+## Quick Start
+
+### Installation
+```bash
+git clone gitlab.sicepat.tech/ilmimris/snowy.git
+cd snowy
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Running
+```bash
+streamlit run app.py
+```
+
+## Use Cases
+
+- **Self-Service Analytics** — Non-technical users can query data
+- **Executive Dashboards** — Natural language queries for business metrics
+- **Data Exploration** — Quick ad-hoc analysis without writing SQL
+- **Reporting** — Generate reports from natural language descriptions
+- **Data Validation** — Verify data quality with simple questions
+
+## Example Queries
+
+- "What were total sales last month?"
+- "Show me revenue by region for Q1"
+- "Which products had the highest return rate?"
+- "Compare customer acquisition costs by channel"
+
+## Links
+
+- **Source:** [gitlab.sicepat.tech/ilmimris/snowy](https://gitlab.sicepat.tech/ilmimris/snowy)
+- **License:** Not specified
+
+---
+
+*Built with Python, Streamlit, Snowflake, and Gemini Pro. Internal project for SiCepat.*

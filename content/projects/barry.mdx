@@ -1,0 +1,95 @@
+---
+title: "Barry"
+description: "AI-powered customer support agent for SiCepat with multi-agent architecture"
+repository: "https://gitlab.sicepat.tech/ilmimris/barry"
+url: "https://gitlab.sicepat.tech/ilmimris/barry"
+date: 2025-04-24
+tags: python, ai, customer-support, fastapi, streamlit
+published: true
+---
+
+## What Is It?
+
+**Barry** is an AI-powered customer support agent for SiCepat, implementing a structured conversation flow with intent recognition and multi-agent architecture. It handles package tracking, shipping cost calculation, and other customer queries through a natural language interface.
+
+## Why Build It?
+
+Customer support for logistics involves repetitive queries — tracking packages, calculating shipping costs, finding branches. Barry automates these interactions while maintaining a structured, reliable conversation flow that can escalate to human agents when needed.
+
+## Architecture
+
+### Multi-Agent System
+
+Barry uses a multi-agent architecture with specialized agents for different query types:
+
+- **Intent Recognition Agent** — Understands what the customer wants
+- **Tracking Agent** — Handles package tracking queries
+- **Shipping Agent** — Calculates shipping costs and tariffs
+- **Location Agent** — Finds branches and service points
+- **Escalation Agent** — Routes complex queries to human agents
+
+### Sequential Conversation Flow
+
+The agent follows a structured conversation flow:
+1. Understand customer intent
+2. Route to specialized agent
+3. Execute tool (API call, calculation, etc.)
+4. Format response
+5. Handle follow-up or escalation
+
+## Features
+
+- **Sequential conversation flow** with intent recognition
+- **Multi-agent system** with specialized agents
+- **Tool integration** for package tracking, shipping costs, etc.
+- **FastAPI backend** for RESTful API access
+- **Streamlit UI** for user-friendly chat interface
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Language | Python 3.8+ |
+| API Framework | FastAPI |
+| UI | Streamlit |
+| AI | LLM-powered intent recognition |
+| Tools | SiCepat APIs, shipping calculators |
+
+## Quick Start
+
+### Prerequisites
+- Python 3.8 or higher
+
+### Installation
+```bash
+pip install -r requirements.txt
+```
+
+### Running the Application
+
+1. Start the API server:
+```bash
+uvicorn api:app --reload
+```
+
+2. In a separate terminal, start the Streamlit UI:
+```bash
+streamlit run app.py
+```
+
+## Use Cases
+
+- **Customer Support Automation** — Handle routine queries without human agents
+- **Package Tracking** — Natural language tracking queries
+- **Shipping Calculations** — Instant tariff and cost estimates
+- **Branch Locator** — Find nearby SiCepat branches
+- **Escalation Handling** — Route complex issues to human agents
+
+## Links
+
+- **Source:** [gitlab.sicepat.tech/ilmimris/barry](https://gitlab.sicepat.tech/ilmimris/barry)
+- **License:** Not specified
+
+---
+
+*Built with Python, FastAPI, and Streamlit. Internal project for SiCepat.*

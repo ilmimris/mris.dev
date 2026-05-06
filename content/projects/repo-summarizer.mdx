@@ -1,0 +1,107 @@
+---
+title: "Repo Summarizer"
+description: "GitLab repository analyzer that generates business use case summaries and tech stack identification"
+repository: "https://gitlab.sicepat.tech/ilmimris/repo-summarizer"
+url: "https://gitlab.sicepat.tech/ilmimris/repo-summarizer"
+date: 2026-01-26
+tags: python, llm, gitlab, analysis, automation
+published: true
+---
+
+## What Is It?
+
+**Repo Summarizer** is a GitLab repository analyzer that generates business use case summaries, identifies tech stacks, and provides maintenance recommendations. It fetches repository files using the GitLab API and uses a local LLM (via OpenAI-compatible API) to generate comprehensive reports.
+
+## Why Build It?
+
+When joining a new project or auditing existing codebases, understanding the tech stack, business purpose, and maintenance state takes significant time. Repo Summarizer automates this analysis, generating detailed reports in minutes instead of hours.
+
+## How It Works
+
+1. **Fetches repository files** using the GitLab API
+2. **Analyzes code structure** — identifies frameworks, languages, dependencies
+3. **Generates business summary** — uses LLM to understand the project's purpose
+4. **Identifies tech stack** — detects frameworks, libraries, and tools
+5. **Provides recommendations** — suggests maintenance improvements
+
+## Features
+
+- **Business use case analysis** — Understand what the project does
+- **Tech stack identification** — Automatic detection of frameworks and libraries
+- **Maintenance recommendations** — Actionable suggestions for improvement
+- **Local LLM support** — Works with Ollama or any OpenAI-compatible API
+- **External CLI agents** — Can offload to Gemini CLI or similar tools
+- **GitLab integration** — Native GitLab API support with PAT authentication
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Language | Python 3.8+ |
+| LLM | OpenAI-compatible API (Ollama, etc.) |
+| API | GitLab API |
+| Package Manager | uv / pip |
+
+## Prerequisites
+
+- Python 3.8+
+- Access to the target GitLab instance
+- GitLab PAT with `read_api` or `read_repository` scope
+- Local LLM (e.g., Ollama) or OpenAI-compatible API
+
+## Quick Start
+
+### Installation
+```bash
+pip install -r requirements.txt
+# OR using uv
+uv pip install -r requirements.txt
+```
+
+### Configuration
+```bash
+cp .env.example .env
+```
+
+Edit `.env`:
+- `GITLAB_PAT` — Your GitLab Personal Access Token
+- `GITLAB_PROJECT_ID` — Project path (e.g., `application/service`) or numeric ID
+- `LLM_BASE_URL` — Local LLM URL (default: `http://localhost:11434/v1`)
+
+### Running with Local LLM
+```bash
+# Start Ollama
+ollama run llama3
+
+# Run the analyzer
+python main.py
+```
+
+### Using External CLI Agents
+Can be configured to use external CLI coding agents like `gemini-cli` instead of local LLMs.
+
+## Use Cases
+
+- **Onboarding** — Quickly understand new codebases
+- **Code Audits** — Automated repository analysis
+- **Documentation** — Generate project summaries automatically
+- **Tech Debt Assessment** — Identify maintenance issues
+- **Portfolio Analysis** — Analyze multiple repositories for patterns
+
+## Example Output
+
+The tool generates reports including:
+- **Business Summary** — What the project does and its purpose
+- **Tech Stack** — Frameworks, libraries, and tools used
+- **Architecture** — High-level structure and patterns
+- **Maintenance Status** — Health indicators and recommendations
+- **Dependencies** — Key dependencies and their versions
+
+## Links
+
+- **Source:** [gitlab.sicepat.tech/ilmimris/repo-summarizer](https://gitlab.sicepat.tech/ilmimris/repo-summarizer)
+- **License:** Not specified
+
+---
+
+*Built with Python and LLM integration. Internal project for SiCepat.*
