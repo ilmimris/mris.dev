@@ -11,7 +11,7 @@ import GradientLayout from "@/layouts/GradientLayout.astro";
 import { formatDate, slugFromId, type WorkEntry } from "@/lib/content";
 
 const works: WorkEntry[] = await getCollection("works");
-const current = works.find((work) => slugFromId(work.id) === "spv2.sicepat");
+const current = works.find((work) => slugFromId(work.id) === "uh.sicepat");
 const sorted = works
   .filter((work) => work.data.published)
   .filter((work) => slugFromId(work.id) !== (current ? slugFromId(current.id) : ""))
