@@ -1,0 +1,127 @@
+---
+title: "Wilayah Indonesia"
+description: "A lightweight fuzzy search API for Indonesian administrative regions"
+repository: "https://github.com/ilmimris/wilayah-indonesia"
+url: "https://github.com/ilmimris/wilayah-indonesia"
+date: 2026-05-06
+tags: go, api, fuzzy-search, indonesia, regions
+published: true
+---
+
+## What Is It?
+
+**Wilayah Indonesia** is a high-performance Go API for fuzzy searching Indonesian administrative regions — provinces, cities, districts, and subdistricts. It's built to be fast, accurate, and easy to deploy anywhere.
+
+The data source is the official [Kepmendagri 2025](https://github.com/ilmimris/wilayah-indonesia) administrative boundaries dataset, so you're always working with authoritative data.
+
+## Why Build It?
+
+Indonesian region data is everywhere — government APIs, open data portals, static JSON files. But finding a **fast, self-contained search layer** that handles typos, partial matches, and multi-level filtering is surprisingly hard.
+
+Most solutions either:
+- Require a full PostgreSQL setup with extensions (pg_trgm, pgvector)
+- Are slow because they scan everything in memory
+- Don't support fuzzy matching at all
+
+This project solves all three by offering two backends:
+
+### DuckDB Backend (Lightweight)
+- Zero external dependencies — just a single binary
+- BM25 full-text search built-in
+- Jaro-Winkler fuzzy matching
+- Perfect for dev, edge, or low-traffic production
+
+### PostgreSQL Backend (Production)
+- Native `tsvector/tsquery` with GIN indexes
+- `pgvector` for embedding-based search
+- `fuzzystrmatch` for Jaro-Winkler similarity
+- Scales to millions of queries
+
+## API at a Glance
+
+```
+GET /v1/search?q=bandung&province=jawa+barat&limit=5
+```
+
+**Parameters:**
+- `q` — Full-text query (BM25)
+- `province`, `city`, `district`, `subdistrict` — Fuzzy field filters (Jaro-Winkler ≥ 0.8)
+- `limit` — Max results (default 10, max 100)
+- `search_bps` — Use BPS official names for matching
+- `include_bps` — Return BPS codes in response
+- `include_scores` — Return similarity scores
+
+City matching automatically handles both "Kota" and "Kabupaten" prefixes, so you don't need to worry about the distinction.
+
+## Architecture
+
+Clean architecture in Go:
+
+```
+cmd/api, cmd/ingestor     → Binary entrypoints
+internal/config           → Wiring (DB, Fiber, use cases)
+internal/delivery/http    → Fiber controllers & routes
+internal/delivery/worker  → CLI dataset refresh
+internal/usecase          → Business rules
+internal/repository       → DuckDB & PostgreSQL implementations
+internal/gateway          → Filesystem loader & SQL normalizer
+internal/shared           → Error taxonomy
+```
+
+The separation means you can swap the database backend without touching business logic or HTTP handlers.
+
+## Quick Start
+
+### Using Docker
+```bash
+docker run -p 8080:8080 ghcr.io/ilmimris/wilayah-indonesia:latest
+```
+
+### Using Makefile
+```bash
+make build
+./bin/api
+```
+
+### Manual Build
+```bash
+go build -o bin/api ./cmd/api
+./bin/api
+```
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|------------|
+| Language | Go 1.24+ |
+| HTTP Framework | Fiber (fasthttp) |
+| Search Backend | DuckDB or PostgreSQL |
+| Fuzzy Matching | Jaro-Winkler |
+| Full-Text Search | BM25 (DuckDB) / tsvector (PostgreSQL) |
+| Container | Docker + Docker Compose |
+| Data Source | Kepmendagri 2025 |
+
+## Use Cases
+
+- **Address forms** — Autocomplete Indonesian regions with typo tolerance
+- **Logistics** — Match delivery addresses to official administrative codes
+- **Analytics** — Enrich datasets with BPS codes and region names
+- **Government APIs** — Power region selection in public services
+- **E-commerce** — Shipping zone validation and region-based pricing
+
+## Current Status
+
+- **Stars:** 2
+- **Forks:** 1
+- **License:** MIT
+- **Last Updated:** March 2026
+- **Data Version:** Kepmendagri 2025
+
+## Links
+
+- **Source:** [github.com/ilmimris/wilayah-indonesia](https://github.com/ilmimris/wilayah-indonesia)
+- **License:** MIT
+
+---
+
+*Built with Go, DuckDB, and PostgreSQL. Open source and free to use.*
