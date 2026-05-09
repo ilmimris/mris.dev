@@ -10,6 +10,7 @@ const navigation = [
   { name: "Works", href: "/works" },
   { name: "Projects", href: "/projects" },
   { name: "Contact", href: "/contact" },
+  { name: "Playground", href: "https://playground.mris.dev", external: true },
 ];
 ---
 
@@ -19,7 +20,12 @@ const navigation = [
       <ul class="flex items-center justify-center gap-4">
         {navigation.map((item) => (
           <li>
-            <a href={item.href} class="text-sm duration-500 text-zinc-500 hover:text-zinc-300">
+            <a
+              href={item.href}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noopener noreferrer" : undefined}
+              class="text-sm duration-500 text-zinc-500 hover:text-zinc-300"
+            >
               {item.name}
             </a>
           </li>
