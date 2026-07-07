@@ -1,0 +1,28 @@
+---
+title: "Gamma Watermark Remover"
+description: "An offline, client-side PDF tool that removes the 'Made with Gamma' badge from exported files"
+repository: "https://github.com/ilmimris/gamma-remover-web"
+url: "https://gamma-remover.mris.dev"
+date: 2026-07-07
+published: true
+---
+
+A lightweight browser tool for cleaning up Gamma-exported PDFs without uploading files anywhere. It inspects page annotations, strips the matching watermark draw block, and downloads a cleaned PDF back to the user.
+
+## Why it exists
+
+Gamma exports are useful, but the embedded badge can be distracting when you want a clean archive or a professional handoff. This tool keeps the workflow private and fast by doing the entire job client-side.
+
+## Highlights
+
+- **100% local processing** — no backend upload step
+- **Offline-friendly** — service worker caches the app shell after first load
+- **Fast interaction** — drag & drop a PDF and download the cleaned copy
+- **Trackable** — analytics wired through the shared Umami instance
+
+## Tech Stack
+
+- HTML, CSS, and vanilla JavaScript
+- pdf-lib for PDF mutation
+- pako for decoding compressed PDF streams
+- Static deployment on `gamma-remover.mris.dev`
