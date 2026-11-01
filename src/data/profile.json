@@ -1,28 +1,28 @@
 [
 	{
 		"id": 1,
-		"category": "Backend & Web Development",
-		"skills": ["Go", "TypeScript", "Python", "GraphQL", "NextJS", "NestJS"]
+		"category": "Languages & Frameworks",
+		"skills": ["Go", "Python", "Node.js", "TypeScript", "GraphQL", "React", "React Vite"]
 	},
 	{
 		"id": 2,
 		"category": "Databases",
-		"skills": ["MongoDB", "PostgreSQL", "Redis", "Neo4J"]
+		"skills": ["MongoDB", "PostgreSQL", "Redis", "Memgraph", "Neo4j", "Snowflake", "Apache Iceberg"]
 	},
 	{
 		"id": 3,
-		"category": "Platform & Messaging",
-		"skills": ["Kafka", "Docker", "Kubernetes", "GitLab CI"]
+		"category": "Platform & Data Engineering",
+		"skills": ["Platform Engineering", "Kafka", "Kafka Connect", "Apache Airflow", "Docker", "Kubernetes", "GitLab CI/CD"]
 	},
 	{
 		"id": 4,
 		"category": "AI & Automation",
-		"skills": ["LLMs", "OpenAI", "OCR", "Object Recognition", "n8n"]
+		"skills": ["LLMs", "OpenAI", "TensorFlow", "PyTorch", "AI-assisted SDLC", "Data Pipelines", "Data Analysis"]
 	},
 	{
 		"id": 5,
 		"category": "Cloud & Infrastructure",
-		"skills": ["GCP", "AWS", "Terraform", "Spot Instances", "Cost Optimization"]
+		"skills": ["GCP", "AWS", "Terraform", "Cloud Infrastructure"]
 	},
 	{
 		"id": 6,

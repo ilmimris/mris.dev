@@ -1,0 +1,19 @@
+---
+title: "Bronze Layer Migration to Apache Iceberg"
+description: "Moved Bronze layer ingestion from Snowflake compute to an Apache Iceberg lakehouse."
+date: 2026-07-01
+tags: data engineering, apache iceberg, kafka connect, airflow, lakehouse
+published: true
+---
+
+## Overview
+
+Led the migration of Bronze layer ingestion workloads away from Snowflake compute to an open lakehouse built on Apache Iceberg.
+
+## Ingestion
+
+- Used Kafka Connect with the Iceberg Sink for streaming ingestion.
+- Used Apache Airflow to orchestrate scheduled batch writes.
+- Reduced reliance on Snowflake compute for raw data ingestion and helped lower data platform costs.
+
+The design combines streaming and scheduled batch pipelines while keeping data in an open table format.
